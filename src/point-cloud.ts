@@ -34,23 +34,22 @@ function build_cov(rot: Quat, scale: Vec3): number[] {
   return [m[0], m[1], m[2], m[5], m[6], m[10]];
 }
 
-async function loadDefaultPly() {
-  const url = "./scenes/bonsai/bonsai_30000.ply";
-  const content = await fetch(url);
-  const arrayBuffer = await content.arrayBuffer();
-  return arrayBuffer;
-}
-
 export type PointCloud = Awaited<ReturnType<typeof load>>;
 
+export async function load(file: File, device: GPUDevice) {
+  const blob = new Blob([file], { type: file.type });
+  const arrayBuffer = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    
+    reader.onload = function(event) {
+      resolve(event.target.result);  // Resolve the promise with the ArrayBuffer
+    };
 
-export async function load(url: string, device: GPUDevice) {
-  time();
-  log(`loading ply file... : ${url}`);
-  const fileArrayBuffer= await loadDefaultPly();
-  timeLog();
+    reader.onerror = reject;  // Reject the promise in case of an error
+    reader.readAsArrayBuffer(blob);
+  });
 
-  const [vertexCount, propertyTypes, vertexData] = decodeHeader(fileArrayBuffer);
+  const [vertexCount, propertyTypes, vertexData] = decodeHeader(arrayBuffer);
   // figure out the SH degree from the number of coefficients
   var nRestCoeffs = 0;
   for (const propertyName in propertyTypes) {

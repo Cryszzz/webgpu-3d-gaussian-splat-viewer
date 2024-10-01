@@ -64,10 +64,20 @@ interface CameraPreset {
   rotation: Mat4,
 }
 
-export async function load_camera_presets(url: string): Promise<CameraPreset[]> {
-  log(`loading scene camera file... : ${url}`);
-  const response = await fetch(url);
-  const json = await response.json();
+export async function load_camera_presets(file: File): Promise<CameraPreset[]> {
+  const blob = new Blob([file], { type: file.type });
+  const arrayBuffer = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    
+    reader.onload = function(event) {
+      resolve(event.target.result);  // Resolve the promise with the ArrayBuffer
+    };
+
+    reader.onerror = reject;  // Reject the promise in case of an error
+    reader.readAsArrayBuffer(blob);
+  });
+  const text = new TextDecoder().decode(arrayBuffer);
+  const json = JSON.parse(text);
   log(`loaded cameras count: ${json.length}`);
 
   return json.map((j: CameraJson): CameraPreset => {
