@@ -19,6 +19,7 @@ export default async function init(
   context: GPUCanvasContext,
   device: GPUDevice
 ) {
+  
   const camera = new Camera(canvas, device);
   const control = new CameraControl(camera);
 
@@ -47,7 +48,7 @@ export default async function init(
   // Tweakpane: easily adding tweak control for parameters.
   const params = {
     gaussian_scaling: 1,
-    renderer: 'gaussian',
+    renderer: 'pointcloud',
   };
 
   const pane = new Pane({
