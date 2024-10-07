@@ -101,20 +101,21 @@ export async function load(file: File, device: GPUDevice) {
   const sh = new Float16Array(sh_buffer.getMappedRange());
 
   var readOffset = 0;
-  var gaussianWriteOffset = 0;
-  var positionWriteOffset = 0;
-  for (let i = 0; i < vertexCount; i++) {
+  for (let i = 0; i < num_points; i++) {
     const [newReadOffset, rawVertex] = readRawVertex(readOffset, vertexData, propertyTypes);
     readOffset = newReadOffset;
 
     const o = i * (c_size_3d_gaussian / c_size_float);
     const output_offset = i * num_coefs * 3;
-
+    
     for (let order = 0; order < num_coefs; ++order) {
         const order_offset = order * 3;
         for (let j = 0; j < 3; ++j) {
             const coeffName = shFeatureOrder[order * 3 + j];
             sh[output_offset +order_offset+j]=rawVertex[coeffName];
+            if(num_points-i<10){
+              console.log("i: "+i+ " order: " + order+ " j: "+j+ " val: " + sh[output_offset +order_offset+j]);
+            }
         }
     }
 
@@ -125,7 +126,7 @@ export async function load(file: File, device: GPUDevice) {
     gaussian[o + 0] = rawVertex.x;
     gaussian[o + 1] = rawVertex.y;
     gaussian[o + 2] = rawVertex.z;
-    gaussian[o + 3] = sigmoid(sigmoid(rawVertex.opacity));
+    gaussian[o + 3] = sigmoid(rawVertex.opacity);
     gaussian.set(cov, o + 4);
   }
 
