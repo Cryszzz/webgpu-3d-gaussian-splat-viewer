@@ -2,9 +2,9 @@ import { parse } from '@loaders.gl/core';
 import { PLYLoader } from '@loaders.gl/ply';
 import { Float16Array } from '@petamoriken/float16';
 import { mat3, Quat, quat, Vec3, vec3 } from 'wgpu-matrix';
-import { log, time, timeLog } from './utils/simple-console';
-import { sigmoid } from './utils/util';
-import { decodeHeader, readRawVertex ,nShCoeffs} from './utils/plyreader';
+import { log, time, timeLog } from './simple-console';
+import { sigmoid } from './util';
+import { decodeHeader, readRawVertex ,nShCoeffs} from './plyreader';
 
 const c_size_float = 2;   // byte size of f16
 // const c_size_float = 4;   // byte size of f32

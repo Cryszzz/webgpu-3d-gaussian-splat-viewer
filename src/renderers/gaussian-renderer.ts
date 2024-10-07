@@ -1,8 +1,8 @@
-import { PointCloud } from './point-cloud';
-import proprocess_wgsl from './shaders/preprocess.wgsl';
-import render_wgsl from './shaders/gaussian.wgsl';
-import { get_sorter } from './sort';
-import { Renderer } from './gaussian-splat-app';
+import { PointCloud } from '../utils/load';
+import proprocess_wgsl from '../shaders/preprocess.wgsl';
+import render_wgsl from '../shaders/gaussian.wgsl';
+import { get_sorter } from '../sort/sort';
+import { Renderer } from './renderer';
 
 export interface GaussianRenderer extends Renderer {
   render_settings_buffer: GPUBuffer,

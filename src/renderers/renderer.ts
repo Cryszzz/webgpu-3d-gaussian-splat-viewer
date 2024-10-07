@@ -2,13 +2,13 @@
 
 // import fragWGSL from './shaders/red.frag.wgsl';
 
-import { load } from './point-cloud';
+import { load } from '../utils/load';
 import { Pane } from 'tweakpane';
 import * as TweakpaneFileImportPlugin from 'tweakpane-plugin-file-import';
 import { default as get_renderer_gaussian, GaussianRenderer } from './gaussian-renderer';
 import { default as get_renderer_pointcloud } from './point-cloud-renderer';
-import { Camera, load_camera_presets} from './camera';
-import { CameraControl } from './camera-control';
+import { Camera, load_camera_presets} from '../camera/camera';
+import { CameraControl } from '../camera/camera-control';
 
 export interface Renderer {
   frame: (encoder: GPUCommandEncoder, texture_view: GPUTextureView) => void,

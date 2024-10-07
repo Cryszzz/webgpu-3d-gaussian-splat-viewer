@@ -1,6 +1,6 @@
-import { PointCloud } from './point-cloud';
-import pointcloud_wgsl from './shaders/point_cloud.wgsl';
-import { Renderer } from './gaussian-splat-app';
+import { PointCloud } from '../utils/load';
+import pointcloud_wgsl from '../shaders/point_cloud.wgsl';
+import { Renderer } from './renderer';
 
 export default function get_renderer(
   pc: PointCloud,

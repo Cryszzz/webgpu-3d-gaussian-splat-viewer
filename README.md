@@ -58,11 +58,12 @@ The viewer basically contains 3 stages:
 
 ## TODOs:
 
-* [ ] Optimize loader: currently I use PLY loader from loader.gl and process them again to fit the viewer's need in main process. This is slow, inefficient, and hang the browser. Likely fix: load in web worker, write customize loader to process by line.
+* [x] Optimize loader: currently I use PLY loader from loader.gl and process them again to fit the viewer's need in main process. This is slow, inefficient, and hang the browser. Likely fix: load in web worker, write customize loader to process by line.
 * [ ] use WebGPU feature "shader-f16".
 * [ ] Decouple sort. Fix sort for general cases.
   - I tested with [webgpu-radix-sort](https://github.com/kishimisu/WebGPU-Radix-Sort) and that mostly worked (it doesn't have indirect dispatch though)
 * [ ] github page deployment (where to host model?)
+  * [x] Change to custom file loading for models
 * [ ] performance metrics
 
 ## Reference

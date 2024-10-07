@@ -1,5 +1,5 @@
 import './style.css'
-import init from './gaussian-splat-app';
+import init from './renderers/renderer';
 import { assert } from './utils/util';
 
 (async () => {

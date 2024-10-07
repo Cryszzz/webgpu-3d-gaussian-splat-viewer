@@ -1,5 +1,5 @@
 import { Mat3, mat3, Mat4, mat4, Vec3, vec3, Vec2, vec2 } from 'wgpu-matrix';
-import { log, time, timeLog } from './utils/simple-console';
+import { log, time, timeLog } from '../utils/simple-console';
 
 interface CameraJson {
   id: number
